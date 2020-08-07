@@ -10,7 +10,9 @@ This module goal is to take an URL as input, download the HTML content and then 
 choose the best way to get its data.
 
 * TODO:
-    * Fonctions: Add_url (webpage -> input url -> download html content then redirect)
+    * Page -> classes_from_url that displays all found class
+    * Group same classes and display number of occurence
+    * Refacto to do it for id and classes
 
 
 # CODE GENERATOR

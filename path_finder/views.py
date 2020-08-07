@@ -32,3 +32,11 @@ def analyse_url(request):
     }
 
     return render(request, 'path_finder/analyse_url.html', context)
+
+
+def display_classes(request):
+    context = {
+        "title": "Home",
+        "classes": [1, 2]
+    }
+    return render(request, "path_finder/classes_from_url.html", context)
