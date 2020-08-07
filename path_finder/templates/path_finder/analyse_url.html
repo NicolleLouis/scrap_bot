@@ -1,0 +1,12 @@
+{% extends 'path_finder/base.html' %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <form action="/path_finder/analyse_url" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
+{% endblock content %}

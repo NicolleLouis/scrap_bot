@@ -10,7 +10,6 @@ This module goal is to take an URL as input, download the HTML content and then 
 choose the best way to get its data.
 
 * TODO:
-    * Models: url_data (url, id=1, html_content)
     * Fonctions: Add_url (webpage -> input url -> download html content then redirect)
 
 
