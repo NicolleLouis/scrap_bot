@@ -3,6 +3,7 @@ from django.shortcuts import render
 
 from path_finder.forms.url_data import UrlDataForm
 from path_finder.repositories.url_data import UrlDataRepository
+from path_finder.services.url_data import UrlDataService
 
 
 # Create your views here.
@@ -20,6 +21,7 @@ def analyse_url(request):
         if form.is_valid():
             url = form.cleaned_data["url"]
             UrlDataRepository.update_url(url)
+            UrlDataService.save_html_content_from_url()
             return HttpResponseRedirect('/path_finder')
     else:
         form = UrlDataForm()

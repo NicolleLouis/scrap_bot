@@ -6,6 +6,7 @@ class UrlDataRepository:
     def update_url(url_value):
         url_data = UrlDataRepository.get_or_create_url_data()
         url_data.url = url_value
+        url_data.html_content = ""
         url_data.save()
 
     @staticmethod
@@ -14,3 +15,9 @@ class UrlDataRepository:
             id=1
         )
         return url_data
+
+    @staticmethod
+    def update_html_content(html_content):
+        url_data = UrlDataRepository.get_or_create_url_data()
+        url_data.html_content = html_content
+        url_data.save()
