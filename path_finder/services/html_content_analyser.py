@@ -1,7 +1,29 @@
+import collections
 import re
 
 
 class HtmlContentAnalyserService:
+
+    @staticmethod
+    def get_classes_with_occurences(html_content):
+        all_classes = HtmlContentAnalyserService.get_all_classes(html_content)
+        classes_with_occurence = HtmlContentAnalyserService.count_class_occurences(
+            all_classes
+        )
+        return classes_with_occurence
+
+    @staticmethod
+    def count_class_occurences(classes_array):
+        classes_with_occurence = []
+        occurences = collections.Counter(classes_array)
+        keys = occurences.keys()
+        for key in keys:
+            classes_with_occurence.append({
+                "value": key,
+                "occurences": occurences[key]
+            })
+        return classes_with_occurence
+
     @staticmethod
     def flatten_array(array):
         result_array = []
@@ -22,7 +44,7 @@ class HtmlContentAnalyserService:
 
     @staticmethod
     def get_all_singular_classes(html_content):
-        no_string_encapsulation_classes = re.findall(r"class=[a-z0-9]*", html_content)
+        no_string_encapsulation_classes = re.findall(r"class=[\-a-z0-9]*", html_content)
         no_string_encapsulation_classes = list(
             map(
                 lambda match: match.replace("class=", ""),
@@ -33,7 +55,7 @@ class HtmlContentAnalyserService:
 
     @staticmethod
     def get_all_multiple_classes(html_content):
-        string_encapsulation_classes = re.findall(r"class=\"[ a-z0-9]*\"", html_content)
+        string_encapsulation_classes = re.findall(r"class=\"[\- a-z0-9]*\"", html_content)
         string_encapsulation_classes = list(
             map(
                 lambda match: match.replace("\"", "").replace("class=", "").split(" "),

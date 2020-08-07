@@ -33,6 +33,10 @@ class HtmlContentAnalyserServiceTestCase(TestCase):
                 "<div>class=\"joker jokerbis\"/div>",
                 ["test", "joker", "jokerbis"]
         ),
+        (
+                "class=site-title-nav",
+                ["site-title-nav"]
+        )
     )
     @unpack
     def test_update_url(self, value, result):
@@ -112,5 +116,85 @@ class HtmlContentAnalyserServiceTestCase(TestCase):
     def test_flatten_array(self, value, result):
         self.assertEqual(
             HtmlContentAnalyserService.flatten_array(value),
+            result
+        )
+
+    @data(
+        (
+                ["a", "b"],
+                [
+                    {
+                        "value": "a",
+                        "occurences": 1
+                    },
+                    {
+                        "value": "b",
+                        "occurences": 1
+                    },
+                ]
+        ),
+        (
+                ["a", "b", "a"],
+                [
+                    {
+                        "value": "a",
+                        "occurences": 2
+                    },
+                    {
+                        "value": "b",
+                        "occurences": 1
+                    },
+                ]
+        ),
+    )
+    @unpack
+    def test_count_class_occurences(self, value, result):
+        self.assertEqual(
+            HtmlContentAnalyserService.count_class_occurences(value),
+            result
+        )
+
+    @data(
+        (
+                "<div>class=\"test testbis\"/div>",
+                [
+                    {
+                        'occurences': 1,
+                        'value': 'test'
+                    },
+                    {
+                        'occurences': 1,
+                        'value': 'testbis'
+                    }
+                ]
+        ),
+        (
+                "<div>class=\"test test\"/div>",
+                [
+                    {
+                        'occurences': 2,
+                        'value': 'test'
+                    }
+                ]
+        ),
+        (
+                "<div>class=\"test testbis\"/div>"
+                "<div>class=test",
+                [
+                    {
+                        'occurences': 2,
+                        'value': 'test'
+                    },
+                    {
+                        'occurences': 1,
+                        'value': 'testbis'
+                    }
+                ]
+        ),
+    )
+    @unpack
+    def test_get_classes_with_occurences(self, value, result):
+        self.assertEqual(
+            HtmlContentAnalyserService.get_classes_with_occurences(value),
             result
         )

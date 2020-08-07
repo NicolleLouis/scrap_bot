@@ -4,6 +4,7 @@ from django.shortcuts import render
 from path_finder.forms.url_data import UrlDataForm
 from path_finder.repositories.url_data import UrlDataRepository
 from path_finder.services.url_data import UrlDataService
+from path_finder.services.html_content_analyser import HtmlContentAnalyserService
 
 
 # Create your views here.
@@ -37,6 +38,8 @@ def analyse_url(request):
 def display_classes(request):
     context = {
         "title": "Home",
-        "classes": [1, 2]
+        "classes": HtmlContentAnalyserService.get_all_classes(
+            UrlDataRepository.get_or_create_url_data().html_content
+        )
     }
     return render(request, "path_finder/classes_from_url.html", context)
