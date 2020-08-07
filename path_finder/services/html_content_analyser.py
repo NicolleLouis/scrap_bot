@@ -3,12 +3,19 @@ import re
 
 
 class HtmlContentAnalyserService:
+    @staticmethod
+    def order_classes_and_occurences(classes_with_occurence):
+        classes_with_occurence.sort(key=lambda item: item['occurences'], reverse=True)
+        return classes_with_occurence
 
     @staticmethod
     def get_classes_with_occurences(html_content):
         all_classes = HtmlContentAnalyserService.get_all_classes(html_content)
         classes_with_occurence = HtmlContentAnalyserService.count_class_occurences(
             all_classes
+        )
+        classes_with_occurence = HtmlContentAnalyserService.order_classes_and_occurences(
+            classes_with_occurence
         )
         return classes_with_occurence
 

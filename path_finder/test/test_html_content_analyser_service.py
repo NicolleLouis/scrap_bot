@@ -191,10 +191,98 @@ class HtmlContentAnalyserServiceTestCase(TestCase):
                     }
                 ]
         ),
+        (
+                "<div>class=\"test testbis testbis\"/div>",
+                [
+                    {
+                        'occurences': 2,
+                        'value': 'testbis'
+                    },
+                    {
+                        'occurences': 1,
+                        'value': 'test'
+                    }
+                ]
+        ),
     )
     @unpack
     def test_get_classes_with_occurences(self, value, result):
         self.assertEqual(
             HtmlContentAnalyserService.get_classes_with_occurences(value),
+            result
+        )
+
+    @data(
+        (
+                [
+                    {
+                        'occurences': 1,
+                        'value': 'test'
+                    },
+                    {
+                        'occurences': 1,
+                        'value': 'testbis'
+                    }
+                ],
+                [
+                    {
+                        'occurences': 1,
+                        'value': 'test'
+                    },
+                    {
+                        'occurences': 1,
+                        'value': 'testbis'
+                    }
+                ],
+        ),
+        (
+                [
+                    {
+                        'occurences': 1,
+                        'value': 'test'
+                    },
+                    {
+                        'occurences': 2,
+                        'value': 'testbis'
+                    }
+                ],
+                [
+                    {
+                        'occurences': 2,
+                        'value': 'testbis'
+                    },
+                    {
+                        'occurences': 1,
+                        'value': 'test'
+                    }
+                ],
+        ),
+        (
+                [
+                    {
+                        'occurences': 2,
+                        'value': 'test'
+                    },
+                    {
+                        'occurences': 1,
+                        'value': 'testbis'
+                    }
+                ],
+                [
+                    {
+                        'occurences': 2,
+                        'value': 'test'
+                    },
+                    {
+                        'occurences': 1,
+                        'value': 'testbis'
+                    }
+                ],
+        ),
+    )
+    @unpack
+    def test_order_classes_and_occurences(self, value, result):
+        self.assertEqual(
+            HtmlContentAnalyserService.order_classes_and_occurences(value),
             result
         )

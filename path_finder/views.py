@@ -38,7 +38,7 @@ def analyse_url(request):
 def display_classes(request):
     context = {
         "title": "Home",
-        "classes": HtmlContentAnalyserService.get_all_classes(
+        "classes": HtmlContentAnalyserService.get_classes_with_occurences(
             UrlDataRepository.get_or_create_url_data().html_content
         )
     }
