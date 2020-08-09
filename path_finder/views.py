@@ -43,3 +43,11 @@ def display_classes(request):
         )
     }
     return render(request, "path_finder/classes_from_url.html", context)
+
+
+def display_detail_class(request):
+    context = {
+        "title": "Home",
+        "class": request.GET.get('class', 'Error')
+    }
+    return render(request, "path_finder/class_detail.html", context)

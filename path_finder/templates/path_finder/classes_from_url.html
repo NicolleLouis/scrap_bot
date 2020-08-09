@@ -8,8 +8,13 @@
     <ul>
         {% for class in classes %}
             <li>
-                {{ class.value }}: {{ class.occurences }}
+                <a href="class_detail?class={{ class.value }}">
+                    {{ class.value }}: {{ class.occurences }}
+                </a>
             </li>
         {% endfor %}
     </ul>
 {% endblock content %}
+
+{% block javascript %}
+{% endblock %}
