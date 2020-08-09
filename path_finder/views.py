@@ -48,6 +48,10 @@ def display_classes(request):
 def display_detail_class(request):
     context = {
         "title": "Home",
-        "class": request.GET.get('class', 'Error')
+        "class": request.GET.get('class', 'Error'),
+        "html_items": HtmlContentAnalyserService.get_html_element_with_class(
+            UrlDataRepository.get_or_create_url_data().html_content,
+            request.GET.get('class', 'Error')
+        )
     }
     return render(request, "path_finder/class_detail.html", context)

@@ -1,6 +1,8 @@
 import collections
 import re
 
+from bs4 import BeautifulSoup
+
 
 class HtmlContentAnalyserService:
     @staticmethod
@@ -88,3 +90,9 @@ class HtmlContentAnalyserService:
         all_classes = HtmlContentAnalyserService.remove_empty_classes(all_classes)
 
         return all_classes
+
+    @staticmethod
+    def get_html_element_with_class(html_content, class_name):
+        soup = BeautifulSoup(html_content, 'html.parser')
+        list_html_element = soup.find_all(attrs={"class": class_name})
+        return list_html_element

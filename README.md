@@ -5,14 +5,18 @@ python3 manage.py migrate
 python3 manage.py runserver
 ```
 
+# ToDo
+
+* A medium article: call for help/feedback + google form to get usefull tricks
+* Call Alexandre to see if he knows freelance discord/slack
+
 # PATH_FINDER
 This module goal is to take an URL as input, download the HTML content and then help the scrapper
 choose the best way to get its data.
 
 * TODO:
-    * Page -> classes_from_url that displays all found class
-    * Group same classes and display number of occurence
-    * Refacto to do it for id and classes
+    * Refacto to do it for id and classes?
+    * requirements file
 
 
 # CODE GENERATOR

@@ -4,11 +4,20 @@
 
 {% block content %}
     <h1>{{ title }}</h1>
-    <h2>{{ class }}</h2>
+    <h2>Class: {{ class }}</h2>
+    {% for html_item in html_items %}
+        {% autoescape off %}
+            {{ html_item }}
+        {% endautoescape %}
+        <br><br>
+        ##############################<br>
+        ##############################<br><br>
+    {% endfor %}
 {% endblock content %}
 
 {% block javascript %}
-<script>
-function my_function(varsize) {}
-</script>
+    <script>
+        function my_function(varsize) {
+        }
+    </script>
 {% endblock %}
