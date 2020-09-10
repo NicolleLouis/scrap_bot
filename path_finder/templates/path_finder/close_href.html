@@ -1,0 +1,17 @@
+{% extends 'path_finder/base.html' %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <ul>
+        {% for link in links %}
+            <li>
+                {{ link.value }}: {{ link.occurences }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
+
+{% block javascript %}
+{% endblock %}

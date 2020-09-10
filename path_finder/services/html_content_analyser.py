@@ -22,6 +22,24 @@ class HtmlContentAnalyserService:
         return classes_with_occurence
 
     @staticmethod
+    def get_href_with_occurences(html_content):
+        all_links = HtmlContentAnalyserService.get_all_href(html_content)
+        links_with_occurences = HtmlContentAnalyserService.count_link_occurences(all_links)
+        return links_with_occurences
+
+    @staticmethod
+    def count_link_occurences(all_links):
+        links_with_occurences = []
+        occurences = collections.Counter(all_links)
+        keys = occurences.keys()
+        for key in keys:
+            links_with_occurences.append({
+                "value": key,
+                "occurences": occurences[key]
+            })
+        return links_with_occurences
+
+    @staticmethod
     def count_class_occurences(classes_array):
         classes_with_occurence = []
         occurences = collections.Counter(classes_array)
@@ -90,6 +108,17 @@ class HtmlContentAnalyserService:
         all_classes = HtmlContentAnalyserService.remove_empty_classes(all_classes)
 
         return all_classes
+
+    @staticmethod
+    def get_all_href(html_content):
+        raw_links = re.findall(r'href="[\.\/\-a-zA-Z]*"', html_content)
+        all_links = list(
+            map(
+                lambda match: match.replace("href=", ""),
+                raw_links
+            )
+        )
+        return all_links
 
     @staticmethod
     def get_html_element_with_class(html_content, class_name):

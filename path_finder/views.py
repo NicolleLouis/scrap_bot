@@ -37,7 +37,7 @@ def analyse_url(request):
 
 def display_classes(request):
     context = {
-        "title": "Home",
+        "title": "All classes",
         "classes": HtmlContentAnalyserService.get_classes_with_occurences(
             UrlDataRepository.get_or_create_url_data().html_content
         )
@@ -47,7 +47,7 @@ def display_classes(request):
 
 def display_detail_class(request):
     context = {
-        "title": "Home",
+        "title": "Class Detail",
         "class": request.GET.get('class', 'Error'),
         "html_items": HtmlContentAnalyserService.get_html_element_with_class(
             UrlDataRepository.get_or_create_url_data().html_content,
@@ -55,3 +55,13 @@ def display_detail_class(request):
         )
     }
     return render(request, "path_finder/class_detail.html", context)
+
+
+def display_href(request):
+    context = {
+        "title": "Close HREF",
+        "links": HtmlContentAnalyserService.get_href_with_occurences(
+            UrlDataRepository.get_or_create_url_data().html_content
+        )
+    }
+    return render(request, "path_finder/close_href.html", context)
