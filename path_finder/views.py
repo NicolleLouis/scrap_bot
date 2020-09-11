@@ -3,6 +3,7 @@ from django.shortcuts import render
 
 from path_finder.forms.url_data import UrlDataForm
 from path_finder.repositories.url_data import UrlDataRepository
+from path_finder.services.link import LinkService
 from path_finder.services.url_data import UrlDataService
 from path_finder.services.html_content_analyser import HtmlContentAnalyserService
 
@@ -57,11 +58,22 @@ def display_detail_class(request):
     return render(request, "path_finder/class_detail.html", context)
 
 
-def display_href(request):
+def display_links(request):
     context = {
-        "title": "Close HREF",
+        "title": "All Links",
         "links": HtmlContentAnalyserService.get_href_with_occurences(
             UrlDataRepository.get_or_create_url_data().html_content
         )
     }
-    return render(request, "path_finder/close_href.html", context)
+    return render(request, "path_finder/links_from_url.html", context)
+
+
+def is_link_recursive(request):
+    link = request.GET.get('link', 'Error')
+    context = {
+        "title": "Link Detail",
+        "link_url": link
+    }
+    if LinkService.is_link_recursive(link):
+        return render(request, "path_finder/link_is_recursive.html", context)
+    return render(request, "path_finder/link_is_not_recursive.html", context)
